@@ -1,10 +1,12 @@
 {
-  "name": "mysows2",
+  "name": "myshows2",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run-appium": "appium",
+    "run-emu": "emulator @Nexus",
+    "config": "run-p run-appium run-emu",
+    "jasmine": "node spec/support/jasmine.js",
+    "test": "run-p -r --aggregate-output config jasmine"
   },
   "repository": {
     "type": "git",
@@ -12,6 +14,7 @@
   },
   "devDependencies": {
     "jasmine": "^3.3.1",
+    "jasmine-expect": "^3.8.4",
     "npm-run-all": "^4.1.5",
     "wdio": "^3.0.0"
   }
