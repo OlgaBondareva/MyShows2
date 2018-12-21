@@ -41,6 +41,7 @@ class basePage {
   }
 
   async doubleClickBack () {
+    await this.driver.waitForVisible(this.backButtonSelector, this.elementVisibleTimeout)
     await this.driver.click(this.backButtonSelector)
     await this.driver.waitForVisible(this.collapseButtonSelector, this.elementVisibleTimeout)
     await this.driver.click(this.collapseButtonSelector)
