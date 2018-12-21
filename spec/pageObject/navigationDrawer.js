@@ -1,8 +1,8 @@
 let basePage = require('./basePage')
 
 class navigationDrawer extends basePage {
-  constructor (driver) {
-    super(driver)
+  constructor (driver, elementVisibleTimeout) {
+    super(driver, elementVisibleTimeout)
   }
 
   get navigationDrawerButton () {return this.driver.$('//*[@content-desc="Open navigation drawer"]')}
@@ -26,17 +26,21 @@ class navigationDrawer extends basePage {
   get logoutButton () {return this.driver.$('//*[@text=\'Logout\']')}
 
   async isLoggedIn () {
-    await this.driver.waitForVisible(this.navigationDrawerButtonSelector, 5000)
+    await this.driver.waitForVisible(this.navigationDrawerButtonSelector, this.elementVisibleTimeout)
     return this.driver.isVisible(this.navigationDrawerButtonSelector)
   }
 
   async openEpisodes () {
+    await this.driver.waitForVisible(this.navigationDrawerButtonSelector, this.elementVisibleTimeout)
     await this.driver.click(this.navigationDrawerButtonSelector)
+    await this.driver.waitForVisible(this.episodesButtonSelector, this.elementVisibleTimeout)
     await this.driver.click(this.episodesButtonSelector)
   }
 
   async openShows () {
+    await this.driver.waitForVisible(this.navigationDrawerButtonSelector, this.elementVisibleTimeout)
     await this.driver.click(this.navigationDrawerButtonSelector)
+    await this.driver.waitForVisible(this.showsButtonSelector, this.elementVisibleTimeout)
     await this.driver.click(this.showsButtonSelector)
   }
 }

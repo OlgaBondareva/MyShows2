@@ -1,8 +1,8 @@
 let navDrawer = require('./navigationDrawer')
 
 class loginPage extends navDrawer {
-  constructor (driver) {
-    super(driver)
+  constructor (driver, elementVisibleTimeout) {
+    super(driver, elementVisibleTimeout)
   }
 
   get title () {return this.driver.$('//*[@text=\'my shows\']')}

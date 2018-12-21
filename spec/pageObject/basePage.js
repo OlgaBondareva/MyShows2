@@ -1,43 +1,59 @@
 class basePage {
-  constructor (driver) {
+  constructor (driver, elementVisibleTimeout = 5000) {
     this.driver = driver
+    this.elementVisibleTimeout = elementVisibleTimeout
   }
 
-  get searchButton () { return this.driver.element('#ru.myshows.activity:id/action_search')}
+  get searchButton () { return this.driver.$('//android.widget.TextView[@content-desc="Search"]')}
 
-  get searchField () { return this.driver.element('#ru.myshows.activity:id/search_src_text')}
+  get searchButtonSelector () { return '//android.widget.TextView[@content-desc="Search"]'}
 
-  get searchResults () { return this.driver.$('android.support.v7.widget.RecyclerView > android.widget.RelativeLayout > android.widget.TextView')}
+  get searchField () { return this.driver.$('//*[@class=\'android.widget.EditText\']')}
 
-  get backButton () { return this.driver.$('android.widget.ImageButton[content-desc="Navigate up"]')}
+  get searchFieldSelector () { return '//*[@class=\'android.widget.EditText\']'}
 
-  get collapseButton () { return this.driver.$('android.widget.ImageButton[content-desc="Collapse"]')}
+  get searchResults () { return this.driver.$('//android.support.v7.widget.RecyclerView/android.widget.RelativeLayout/android.widget.TextView')}
+
+  get searchResultsSelector () { return '//android.support.v7.widget.RecyclerView//android.widget.RelativeLayout[*]/android.widget.TextView'}
+
+  get backButton () { return this.driver.$('//*[@content-desc="Navigate up"]')}
+
+  get backButtonSelector () { return '//*[@content-desc="Navigate up"]'}
+
+  get collapseButton () { return this.driver.$('//*[@content-desc="Collapse"]')}
+
+  get collapseButtonSelector () { return '//*[@content-desc="Collapse"]'}
 
   getDriver () {
     return this.driver
   }
 
   async searchShow (serial) {
-    await this.searchButton.click()
-    await this.searchField.sendKeys(serial)
-    await this.driver.waitUntil(this.driver.isKeyboardShown(), 3000)
-    // tap the search button on mobile keyboard
-    await this.driver.tap({x: 992, y: 1698})
-    await this.driver.sleep(1000)
+    await this.driver.click(this.searchButtonSelector)
+    await this.driver.setValue(this.searchFieldSelector, serial)
+    // wait a little before tapping on the keyboard
+    await this.driver.pause(3000)
+    // tap the search button on the mobile keyboard
+    await this.driver.touchAction({action: 'tap', x: 992, y: 1698})
+    await this.driver.pause(1000)
   }
 
   async getSearchResults () {
     let results = []
-    let elements = await this.searchResults
-    for (let i = 0; i < elements.length; i++) {
-      results.push(await elements[i].text())
+    await this.driver.waitForVisible(this.searchResultsSelector, this.elementVisibleTimeout)
+    let searchResultsLength = await this.driver.$$(this.searchResultsSelector).length
+    for (let i = 0; i < searchResultsLength; i++) {
+      let selector = this.searchResultsSelector.replace('*', i + 1)
+      let text = await this.driver.getText(selector)
+      results.push(text)
     }
     return results
   }
 
   async doubleClickBack () {
-    await this.backButton.click()
-    await this.collapseButton.click()
+    await this.driver.click(this.backButtonSelector)
+    await this.driver.waitForVisible(this.collapseButtonSelector, this.elementVisibleTimeout)
+    await this.driver.click(this.collapseButtonSelector)
   }
 }
 
