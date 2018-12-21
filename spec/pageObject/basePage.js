@@ -40,10 +40,10 @@ class basePage {
     return results
   }
 
-  async doubleClickBack () {
+  async backAfterSearch () {
     await this.driver.waitForVisible(this.backButtonSelector, this.elementVisibleTimeout)
     await this.driver.click(this.backButtonSelector)
-    await this.driver.waitForVisible(this.collapseButtonSelector, this.elementVisibleTimeout)
+    await this.driver.waitForVisible(this.collapseButtonSelector, (2 * this.elementVisibleTimeout))
     await this.driver.click(this.collapseButtonSelector)
   }
 }
