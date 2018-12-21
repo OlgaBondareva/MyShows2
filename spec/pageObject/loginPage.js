@@ -20,6 +20,7 @@ class loginPage extends navDrawer {
   }
 
   async isTitleVisible () {
+    await this.driver.waitForVisible(this.titleSelector, this.elementVisibleTimeout)
     return await this.driver.isVisible(this.titleSelector)
   }
 }
