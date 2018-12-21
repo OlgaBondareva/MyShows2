@@ -4,9 +4,9 @@
   "scripts": {
     "run-appium": "appium",
     "run-emu": "emulator @Nexus",
-    "config": "run-p --aggregate-output run-appium run-emu",
+    "config": "run-p run-appium run-emu",
     "jasmine": "node spec/support/jasmine.js",
-    "test": "run-p -r --aggregate-output config jasmine"
+    "test": "run-p -r config jasmine"
   },
   "repository": {
     "type": "git",
