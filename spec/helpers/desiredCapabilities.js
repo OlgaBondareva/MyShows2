@@ -1,7 +1,6 @@
 exports.android27 = {
   desiredCapabilities: {
     browserName: '',
-    'appium-version': '1.9.1',
     platformVersion: 8.1,
     platformName: 'Android',
     deviceName: 'Nexus 5',
