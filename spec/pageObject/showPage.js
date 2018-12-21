@@ -5,19 +5,11 @@ class showPage extends navDrawer {
     super(driver, elementVisibleTimeout)
   }
 
-  get watchingShowOption () {return this.driver.$('//*[@text=\'Watching\']')}
-
   get watchingShowOptionSelector () {return '//*[@text=\'Watching\']'}
-
-  get removeShowOption () {return this.driver.$('//*[@text=\'Remove\']')}
 
   get removeShowOptionSelector () {return '//*[@text=\'Remove\']'}
 
-  get okButton () {return this.driver.$('//*[@text=\'OK\']')}
-
   get okButtonSelector () {return '//*[@text=\'OK\']'}
-
-  get optionsButton () {return this.driver.$('//android.widget.RelativeLayout/android.view.ViewGroup[1]/android.widget.ImageButton')}
 
   get optionsButtonSelector () {return '//android.widget.RelativeLayout/android.view.ViewGroup[1]/android.widget.ImageButton'}
 

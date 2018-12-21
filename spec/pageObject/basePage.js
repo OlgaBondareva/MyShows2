@@ -4,23 +4,13 @@ class basePage {
     this.elementVisibleTimeout = elementVisibleTimeout
   }
 
-  get searchButton () { return this.driver.$('//android.widget.TextView[@content-desc="Search"]')}
-
   get searchButtonSelector () { return '//android.widget.TextView[@content-desc="Search"]'}
-
-  get searchField () { return this.driver.$('//*[@class=\'android.widget.EditText\']')}
 
   get searchFieldSelector () { return '//*[@class=\'android.widget.EditText\']'}
 
-  get searchResults () { return this.driver.$('//android.support.v7.widget.RecyclerView/android.widget.RelativeLayout/android.widget.TextView')}
-
   get searchResultsSelector () { return '//android.support.v7.widget.RecyclerView//android.widget.RelativeLayout[*]/android.widget.TextView'}
 
-  get backButton () { return this.driver.$('//*[@content-desc="Navigate up"]')}
-
   get backButtonSelector () { return '//*[@content-desc="Navigate up"]'}
-
-  get collapseButton () { return this.driver.$('//*[@content-desc="Collapse"]')}
 
   get collapseButtonSelector () { return '//*[@content-desc="Collapse"]'}
 

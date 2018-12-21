@@ -5,11 +5,7 @@ class loginPage extends navDrawer {
     super(driver, elementVisibleTimeout)
   }
 
-  get title () {return this.driver.$('//*[@text=\'my shows\']')}
-
   get titleSelector () {return '//*[@text=\'my shows\']'}
-
-  get loginButton () {return this.driver.$('//*[@text=\'LOGIN\']')}
 
   get loginButtonLocator () {return '//*[@text=\'LOGIN\']'}
 
