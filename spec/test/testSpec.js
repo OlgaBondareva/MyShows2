@@ -2,26 +2,27 @@ const webdriver = require('webdriverio')
 let credentials = require('../helpers/credentials')
 let caps = require('../helpers/desiredCapabilities').android27
 let driver = webdriver.remote(caps)
-let loginPage = require('../pageObject/loginPage')
-let showsPage = require('../pageObject/showsPage')
+let LoginPage = require('../pageObject/loginPage')
+let ShowsPage = require('../pageObject/showsPage')
 
 describe('App MyShows', () => {
   let login, shows
-  let serial1 = 'The Big Bang Theory'
-  let serial2 = 'Death Note'
+  let series1 = 'Big Bang'
+  let series2 = 'Death Note'
 
   beforeAll(async () => {
     await driver.pause(5000)
     await driver.init()
-    await driver.timeouts('implicit', 20000)
+    await driver.timeouts('implicit', 6000)
   })
 
   afterAll(async () => {
+    await shows.removeFromWatching(series2)
     await driver.end()
   })
 
   it('should have visible "MyShows" title on the login page', async () => {
-    login = await new loginPage(driver, 7000)
+    login = await new LoginPage(driver)
     let isTitleVisible = await login.isTitleVisible()
     expect(isTitleVisible).toBeTrue()
   })
@@ -33,19 +34,18 @@ describe('App MyShows', () => {
   })
 
   it('should search requested series', async () => {
-    await login.searchShow(serial1)
+    await login.searchShow(series1)
     let results = await login.getSearchResults()
     for (let i = 0; i < results.length; i++) {
-      expect(results[i].indexOf(serial1) !== -1).toBeTrue()
+      expect(results[i]).toContain(series1)
     }
     await login.backAfterSearch()
   })
 
   it('should add given serial to the watching category', async () => {
-    shows = await new showsPage(login.getDriver(), 7000)
-    await shows.addToWatching(serial2)
-    let isAdded = await shows.checkWatchingEpisodesWithSerial(serial2)
+    shows = await new ShowsPage(login.getDriver())
+    await shows.addToWatching(series2)
+    let isAdded = await shows.checkWatchingEpisodesWithSerial(series2)
     expect(isAdded).toBeTrue()
-    await shows.removeFromWatching(serial2)
   })
 })
