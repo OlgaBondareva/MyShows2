@@ -7,6 +7,8 @@ class showsPage extends showPage {
 
   get serialNamesSelector () { return '//android.support.v7.widget.RecyclerView//android.widget.TextView'}
 
+  get serialSelector () { return '//android.widget.TextView[@text=\'*\']'}
+
   async findAndOpenShow (serial) {
     while (true) {
       await this.driver.pause(1500)
@@ -14,7 +16,8 @@ class showsPage extends showPage {
       for (let i = 0; i < visibleSerials.length; i++) {
         if (visibleSerials[i] === serial) {
           await this.driver.pause(1500)
-          return await this.driver.click(`//android.widget.TextView[@text='${serial}']`)
+          let selector = this.serialSelector.replace('*', serial)
+          return await this.driver.click(selector)
         }
       }
       await this.driver.touchAction([
@@ -44,8 +47,9 @@ class showsPage extends showPage {
 
   async checkWatchingEpisodesWithSerial (serial) {
     await this.openEpisodes()
-    await this.driver.waitForVisible(`//android.widget.TextView[@text='${serial}']`, this.elementVisibleTimeout)
-    return await this.driver.isVisible(`//android.widget.TextView[@text='${serial}']`)
+    let selector = this.serialSelector.replace('*', serial)
+    await this.driver.waitForVisible(selector, this.elementVisibleTimeout)
+    return await this.driver.isVisible(selector)
   }
 }
 
