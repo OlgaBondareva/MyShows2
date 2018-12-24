@@ -1,24 +1,20 @@
 let showPage = require('./showPage')
+let NavDrawer = require('./navigationDrawer')
 
 class showsPage extends showPage {
-  constructor (driver, elementVisibleTimeout) {
-    super(driver, elementVisibleTimeout)
+  constructor (driver) {
+    super(driver)
+    this.navDrawer = new NavDrawer(this.driver)
   }
 
-  get serialNamesSelector () { return '//android.support.v7.widget.RecyclerView//android.widget.TextView'}
+  get seriesSelector () { return '//android.widget.TextView[@text=\'*\']'}
 
-  get serialSelector () { return '//android.widget.TextView[@text=\'*\']'}
-
-  async findAndOpenShow (serial) {
+  async findAndOpenShow (series) {
     while (true) {
-      await this.driver.pause(1500)
-      let visibleSerials = await this.driver.getText(this.serialNamesSelector)
-      for (let i = 0; i < visibleSerials.length; i++) {
-        if (visibleSerials[i] === serial) {
-          await this.driver.pause(1500)
-          let selector = this.serialSelector.replace('*', serial)
-          return await this.driver.click(selector)
-        }
+      let selector = this.seriesSelector.replace('*', series)
+      let isVisible = await this.driver.isVisible(selector)
+      if (isVisible) {
+        return await this.driver.click(selector)
       }
       await this.driver.touchAction([
         {action: 'press', x: 830, y: 1607},
@@ -30,25 +26,22 @@ class showsPage extends showPage {
   }
 
   async addToWatching (serial) {
-    await this.openShows()
+    await this.navDrawer.openShows()
     await this.findAndOpenShow(serial)
     await this.addShowToWatchingCategory()
-    await this.driver.waitForVisible(this.backButtonSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.backButtonSelector)
+    await this.backButton.click()
   }
 
   async removeFromWatching (serial) {
-    await this.openShows()
+    await this.navDrawer.openShows()
     await this.findAndOpenShow(serial)
     await this.removeShowFromAnyCategory()
-    await this.driver.waitForVisible(this.backButtonSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.backButtonSelector)
+    await this.backButton.click()
   }
 
   async checkWatchingEpisodesWithSerial (serial) {
-    await this.openEpisodes()
-    let selector = this.serialSelector.replace('*', serial)
-    await this.driver.waitForVisible(selector, this.elementVisibleTimeout)
+    await this.navDrawer.openEpisodes()
+    let selector = this.seriesSelector.replace('*', serial)
     return await this.driver.isVisible(selector)
   }
 }

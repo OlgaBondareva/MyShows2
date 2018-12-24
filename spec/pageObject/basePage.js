@@ -1,50 +1,46 @@
+let NavDrawer = require('./navigationDrawer')
+
 class basePage {
-  constructor (driver, elementVisibleTimeout = 5000) {
+  constructor (driver) {
     this.driver = driver
-    this.elementVisibleTimeout = elementVisibleTimeout
+    this.navDrawer = new NavDrawer(this.driver)
   }
 
-  get searchButtonSelector () { return '//android.widget.TextView[@content-desc="Search"]'}
+  get searchButton () { return this.driver.$('~Search')}
 
-  get searchFieldSelector () { return '//*[@class=\'android.widget.EditText\']'}
+  get searchField () { return this.driver.$('android=new UiSelector().className("android.widget.EditText")')}
 
   get searchResultsSelector () { return '//android.support.v7.widget.RecyclerView//android.widget.RelativeLayout[*]/android.widget.TextView'}
 
-  get backButtonSelector () { return '//*[@content-desc="Navigate up"]'}
+  get backButton () { return this.driver.$('~Navigate up')}
 
-  get collapseButtonSelector () { return '//*[@content-desc="Collapse"]'}
+  get collapseButton () { return this.driver.$('~Collapse')}
 
   getDriver () {
     return this.driver
   }
 
-  async searchShow (serial) {
-    await this.driver.click(this.searchButtonSelector)
-    await this.driver.setValue(this.searchFieldSelector, serial)
+  async isLoggedIn () {
+    return this.navDrawer.navigationDrawerButton.isVisible()
+  }
+
+  async searchShow (series) {
+    await this.searchButton.click()
+    await this.searchField.setValue(series)
     // wait a little before tapping on the keyboard
     await this.driver.pause(3000)
     // tap the search button on the mobile keyboard
     await this.driver.touchAction({action: 'tap', x: 992, y: 1698})
-    await this.driver.pause(1000)
+    await this.driver.pause(3000)
   }
 
   async getSearchResults () {
-    let results = []
-    await this.driver.waitForVisible(this.searchResultsSelector, this.elementVisibleTimeout)
-    let searchResultsLength = await this.driver.$$(this.searchResultsSelector).length
-    for (let i = 0; i < searchResultsLength; i++) {
-      let selector = this.searchResultsSelector.replace('*', i + 1)
-      let text = await this.driver.getText(selector)
-      results.push(text)
-    }
-    return results
+    return await this.driver.getText(this.searchResultsSelector)
   }
 
   async backAfterSearch () {
-    await this.driver.waitForVisible(this.backButtonSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.backButtonSelector)
-    await this.driver.waitForVisible(this.collapseButtonSelector, (2 * this.elementVisibleTimeout))
-    await this.driver.click(this.collapseButtonSelector)
+    await this.backButton.click()
+    await this.collapseButton.click()
   }
 }
 

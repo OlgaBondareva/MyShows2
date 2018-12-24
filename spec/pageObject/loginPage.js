@@ -1,27 +1,27 @@
-let navDrawer = require('./navigationDrawer')
+let basePage = require('./basePage')
 
-class loginPage extends navDrawer {
-  constructor (driver, elementVisibleTimeout) {
-    super(driver, elementVisibleTimeout)
+class loginPage extends basePage {
+  constructor (driver) {
+    super(driver)
   }
 
-  get titleSelector () {return '//*[@text=\'my shows\']'}
+  get title () {return this.driver.$('android=new UiSelector().text("my shows")')}
 
-  get loginButtonLocator () {return '//*[@text=\'LOGIN\']'}
+  get loginButton () {return this.driver.$('android=new UiSelector().text("LOGIN")')}
 
-  get passField () {return this.driver.$('//*[@text=\'Password\']')}
+  get passField () {return this.driver.$('android=new UiSelector().text("Password")')}
 
-  get loginField () {return this.driver.$('//*[@text=\'Login\']')}
+  get loginField () {return this.driver.$('android=new UiSelector().text("Login")')}
 
   async enterCredentialsAndSubmit (login, password) {
     await this.loginField.setValue(login)
     await this.passField.setValue(password)
-    await this.driver.click(this.loginButtonLocator)
+    await this.loginButton.click()
   }
 
   async isTitleVisible () {
-    await this.driver.waitForVisible(this.titleSelector, this.elementVisibleTimeout)
-    return await this.driver.isVisible(this.titleSelector)
+    await this.driver.pause(5000)
+    return await this.title.isVisible()
   }
 }
 

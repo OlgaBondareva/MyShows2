@@ -1,34 +1,24 @@
-let basePage = require('./basePage')
-
-class navigationDrawer extends basePage {
-  constructor (driver, elementVisibleTimeout) {
-    super(driver, elementVisibleTimeout)
+class navigationDrawer {
+  constructor (driver) {
+    this.driver = driver
   }
 
-  get navigationDrawerButtonSelector () {return '//*[@content-desc="Open navigation drawer"]'}
+  get navigationDrawerButton () {return this.driver.$('~Open navigation drawer')}
 
-  get episodesButtonSelector () {return '//*[@text=\'Episodes\']'}
+  get episodesButton () {return this.driver.$('android=new UiSelector().text("Episodes")')}
 
-  get showsButtonSelector () {return '//*[@text=\'Shows\']'}
-
-  async isLoggedIn () {
-    await this.driver.waitForVisible(this.navigationDrawerButtonSelector, this.elementVisibleTimeout)
-    return this.driver.isVisible(this.navigationDrawerButtonSelector)
-  }
+  get showsButton () {return this.driver.$('android=new UiSelector().text("Shows")')}
 
   async openEpisodes () {
-    await this.driver.waitForVisible(this.navigationDrawerButtonSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.navigationDrawerButtonSelector)
-    await this.driver.waitForVisible(this.episodesButtonSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.episodesButtonSelector)
+    await this.navigationDrawerButton.click()
+    await this.episodesButton.click()
   }
 
   async openShows () {
-    await this.driver.waitForVisible(this.navigationDrawerButtonSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.navigationDrawerButtonSelector)
-    await this.driver.waitForVisible(this.showsButtonSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.showsButtonSelector)
+    await this.navigationDrawerButton.click()
+    await this.showsButton.click()
   }
 }
 
 module.exports = navigationDrawer
+

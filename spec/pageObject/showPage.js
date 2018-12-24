@@ -1,32 +1,28 @@
-let navDrawer = require('./navigationDrawer')
+let basePage = require('./basePage')
 
-class showPage extends navDrawer {
-  constructor (driver, elementVisibleTimeout) {
-    super(driver, elementVisibleTimeout)
+class showPage extends basePage {
+  constructor (driver) {
+    super(driver)
   }
 
-  get watchingShowOptionSelector () {return '//*[@text=\'Watching\']'}
+  get watchingShowOption () {return this.driver.$('android=new UiSelector().text("Watching")')}
 
-  get removeShowOptionSelector () {return '//*[@text=\'Remove\']'}
+  get removeShowOption () {return this.driver.$('android=new UiSelector().text("Remove")')}
 
-  get okButtonSelector () {return '//*[@text=\'OK\']'}
+  get okButton () {return this.driver.$('android=new UiSelector().text("OK")')}
 
-  get optionsButtonSelector () {return '//android.widget.RelativeLayout/android.view.ViewGroup[1]/android.widget.ImageButton'}
+  get optionsButton () {return this.driver.$('android=new UiSelector().resourceId("ru.myshows.activity:id/fab_id")')}
 
   async addShowToWatchingCategory () {
-    await this.driver.waitForVisible(this.optionsButtonSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.optionsButtonSelector)
-    await this.driver.waitForVisible(this.watchingShowOptionSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.watchingShowOptionSelector)
-    await this.driver.click(this.okButtonSelector)
+    await this.optionsButton.click()
+    await this.watchingShowOption.click()
+    await this.okButton.click()
   }
 
   async removeShowFromAnyCategory () {
-    await this.driver.waitForVisible(this.optionsButtonSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.optionsButtonSelector)
-    await this.driver.waitForVisible(this.watchingShowOptionSelector, this.elementVisibleTimeout)
-    await this.driver.click(this.removeShowOptionSelector)
-    await this.driver.click(this.okButtonSelector)
+    await this.optionsButton.click()
+    await this.removeShowOption.click()
+    await this.okButton.click()
   }
 }
 
