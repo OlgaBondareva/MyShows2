@@ -20,7 +20,7 @@ describe('App MyShows', () => {
     await driver.end()
   })
 
-  it('should have visible "MyShows" title on login page', async () => {
+  it('should have visible "MyShows" title on the login page', async () => {
     login = await new loginPage(driver, 7000)
     let isTitleVisible = await login.isTitleVisible()
     expect(isTitleVisible).toBeTrue()
@@ -41,7 +41,7 @@ describe('App MyShows', () => {
     await login.backAfterSearch()
   })
 
-  it('should add given serial to watching category', async () => {
+  it('should add given serial to the watching category', async () => {
     shows = await new showsPage(login.getDriver(), 7000)
     await shows.addToWatching(serial2)
     let isAdded = await shows.checkWatchingEpisodesWithSerial(serial2)
