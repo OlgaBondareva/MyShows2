@@ -1,8 +1,8 @@
-let basePage = require('./basePage')
+let BasePage = require('./basePage')
 
-class showPage extends basePage {
-  constructor (driver) {
-    super(driver)
+class showPage extends BasePage {
+  constructor (driver, implicitTimeout) {
+    super(driver, implicitTimeout)
   }
 
   get watchingShowOption () {return this.driver.$('android=new UiSelector().text("Watching")')}

@@ -1,19 +1,21 @@
-let showPage = require('./showPage')
+let ShowPage = require('./showPage')
 let NavDrawer = require('./navigationDrawer')
 
-class showsPage extends showPage {
-  constructor (driver) {
-    super(driver)
+class showsPage extends ShowPage {
+  constructor (driver, implicitTimeout) {
+    super(driver, implicitTimeout)
     this.navDrawer = new NavDrawer(this.driver)
   }
 
   get seriesSelector () { return '//android.widget.TextView[@text=\'*\']'}
 
   async findAndOpenShow (series) {
+    await this.driver.timeouts('implicit', this.implicitTimeout / 2)
     while (true) {
       let selector = this.seriesSelector.replace('*', series)
       let isVisible = await this.driver.isVisible(selector)
       if (isVisible) {
+        await this.driver.timeouts('implicit', this.implicitTimeout)
         return await this.driver.click(selector)
       }
       await this.driver.touchAction([

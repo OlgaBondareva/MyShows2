@@ -1,8 +1,8 @@
-let basePage = require('./basePage')
+let BasePage = require('./basePage')
 
-class loginPage extends basePage {
-  constructor (driver) {
-    super(driver)
+class loginPage extends BasePage {
+  constructor (driver, implicitTimeout) {
+    super(driver, implicitTimeout)
   }
 
   get title () {return this.driver.$('android=new UiSelector().text("my shows")')}

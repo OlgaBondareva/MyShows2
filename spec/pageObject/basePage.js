@@ -1,9 +1,11 @@
 let NavDrawer = require('./navigationDrawer')
 
 class basePage {
-  constructor (driver) {
+  constructor (driver, implicitTimeout = 6000) {
     this.driver = driver
     this.navDrawer = new NavDrawer(this.driver)
+    this.implicitTimeout = implicitTimeout
+    this.driver.timeouts('implicit', implicitTimeout)
   }
 
   get searchButton () { return this.driver.$('~Search')}
@@ -28,10 +30,10 @@ class basePage {
     await this.searchButton.click()
     await this.searchField.setValue(series)
     // wait a little before tapping on the keyboard
-    await this.driver.pause(3000)
+    await this.driver.pause(this.implicitTimeout / 2)
     // tap the search button on the mobile keyboard
     await this.driver.touchAction({action: 'tap', x: 992, y: 1698})
-    await this.driver.pause(3000)
+    await this.driver.pause(this.implicitTimeout / 2)
   }
 
   async getSearchResults () {
