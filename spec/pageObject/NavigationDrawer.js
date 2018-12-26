@@ -1,4 +1,4 @@
-class navigationDrawer {
+class NavigationDrawer {
   constructor (driver) {
     this.driver = driver
   }
@@ -20,5 +20,5 @@ class navigationDrawer {
   }
 }
 
-module.exports = navigationDrawer
+module.exports = NavigationDrawer
 

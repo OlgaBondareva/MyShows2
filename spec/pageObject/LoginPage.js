@@ -1,6 +1,6 @@
 let BasePage = require('./BasePage')
 
-class loginPage extends BasePage {
+class LoginPage extends BasePage {
   constructor (driver, implicitTimeout) {
     super(driver, implicitTimeout)
   }
@@ -25,4 +25,4 @@ class loginPage extends BasePage {
   }
 }
 
-module.exports = loginPage
+module.exports = LoginPage

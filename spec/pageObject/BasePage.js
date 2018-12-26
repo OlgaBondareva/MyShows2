@@ -1,6 +1,6 @@
 let NavDrawer = require('./NavigationDrawer')
 
-class basePage {
+class BasePage {
   constructor (driver, implicitTimeout = 6000) {
     this.driver = driver
     this.navDrawer = new NavDrawer(this.driver)
@@ -42,4 +42,4 @@ class basePage {
   }
 }
 
-module.exports = basePage
+exports = BasePage

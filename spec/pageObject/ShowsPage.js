@@ -2,7 +2,7 @@ let ShowPage = require('./ShowPage')
 let NavDrawer = require('./NavigationDrawer')
 let actions = require('../helpers/actions')
 
-class showsPage extends ShowPage {
+class ShowsPage extends ShowPage {
   constructor (driver, implicitTimeout) {
     super(driver, implicitTimeout)
     this.navDrawer = new NavDrawer(this.driver)
@@ -44,4 +44,4 @@ class showsPage extends ShowPage {
   }
 }
 
-module.exports = showsPage
+module.exports = ShowsPage
