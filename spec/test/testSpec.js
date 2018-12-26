@@ -2,8 +2,8 @@ const webdriver = require('webdriverio')
 let credentials = require('../helpers/credentials')
 let caps = require('../helpers/desiredCapabilities').android27
 let driver = webdriver.remote(caps)
-let LoginPage = require('../pageObject/async-await/LoginPage')
-let ShowsPage = require('../pageObject/async-await/ShowsPage')
+let LoginPage = require('../pageObject/LoginPage')
+let ShowsPage = require('../pageObject/ShowsPage')
 
 describe('App MyShows', () => {
   let login, shows

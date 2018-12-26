@@ -14,6 +14,8 @@ class BasePage {
 
   get searchResultsSelector () { return '//android.support.v7.widget.RecyclerView//android.widget.RelativeLayout[*]/android.widget.TextView'}
 
+  get searchResults () { return this.driver.$('//android.support.v7.widget.RecyclerView//android.widget.RelativeLayout[*]/android.widget.TextView')}
+
   get backButton () { return this.driver.$('~Navigate up')}
 
   get collapseButton () { return this.driver.$('~Collapse')}
@@ -42,4 +44,4 @@ class BasePage {
   }
 }
 
-exports = BasePage
+module.exports = BasePage
