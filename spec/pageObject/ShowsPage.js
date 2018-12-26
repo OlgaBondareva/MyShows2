@@ -23,23 +23,23 @@ class ShowsPage extends ShowPage {
     }
   }
 
-  async addToWatching (serial) {
+  async addToWatching (series) {
     await this.navDrawer.openShows()
-    await this.findAndOpenShow(serial)
+    await this.findAndOpenShow(series)
     await this.addShowToWatchingCategory()
     await this.backButton.click()
   }
 
-  async removeFromWatching (serial) {
+  async removeFromWatching (series) {
     await this.navDrawer.openShows()
-    await this.findAndOpenShow(serial)
+    await this.findAndOpenShow(series)
     await this.removeShowFromAnyCategory()
     await this.backButton.click()
   }
 
-  async isSeriesAddedToWatchingEpisodes (serial) {
+  async isSeriesAddedToWatchingEpisodes (series) {
     await this.navDrawer.openEpisodes()
-    let selector = this.seriesSelector.replace('*', serial)
+    let selector = this.seriesSelector.replace('*', series)
     return await this.driver.isVisible(selector)
   }
 }
