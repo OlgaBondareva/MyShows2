@@ -1,5 +1,5 @@
-let ShowPage = require('./showPage')
-let NavDrawer = require('./navigationDrawer')
+let ShowPage = require('./ShowPage')
+let NavDrawer = require('./NavigationDrawer')
 
 class showsPage extends ShowPage {
   constructor (driver, implicitTimeout) {
@@ -41,7 +41,7 @@ class showsPage extends ShowPage {
     await this.backButton.click()
   }
 
-  async checkWatchingEpisodesWithSerial (serial) {
+  async isSeriesAddedToWatchingEpisodes (serial) {
     await this.navDrawer.openEpisodes()
     let selector = this.seriesSelector.replace('*', serial)
     return await this.driver.isVisible(selector)

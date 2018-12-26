@@ -1,4 +1,4 @@
-let NavDrawer = require('./navigationDrawer')
+let NavDrawer = require('./NavigationDrawer')
 
 class basePage {
   constructor (driver, implicitTimeout = 6000) {
@@ -17,10 +17,6 @@ class basePage {
   get backButton () { return this.driver.$('~Navigate up')}
 
   get collapseButton () { return this.driver.$('~Collapse')}
-
-  getDriver () {
-    return this.driver
-  }
 
   async isLoggedIn () {
     return this.navDrawer.navigationDrawerButton.isVisible()

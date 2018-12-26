@@ -2,8 +2,8 @@ const webdriver = require('webdriverio')
 let credentials = require('../helpers/credentials')
 let caps = require('../helpers/desiredCapabilities').android27
 let driver = webdriver.remote(caps)
-let LoginPage = require('../pageObject/loginPage')
-let ShowsPage = require('../pageObject/showsPage')
+let LoginPage = require('../pageObject/async-await/LoginPage')
+let ShowsPage = require('../pageObject/async-await/ShowsPage')
 
 describe('App MyShows', () => {
   let login, shows
@@ -41,10 +41,10 @@ describe('App MyShows', () => {
     await login.backAfterSearch()
   })
 
-  it('should add given serial to the watching category', async () => {
-    shows = await new ShowsPage(login.getDriver(), 6000)
+  it('should add given series to the watching category', async () => {
+    shows = await new ShowsPage(driver, 6000)
     await shows.addToWatching(series2)
-    let isAdded = await shows.checkWatchingEpisodesWithSerial(series2)
+    let isAdded = await shows.isSeriesAddedToWatchingEpisodes(series2)
     expect(isAdded).toBeTrue()
   })
 })

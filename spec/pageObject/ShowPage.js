@@ -1,4 +1,4 @@
-let BasePage = require('./basePage')
+let BasePage = require('./BasePage')
 
 class showPage extends BasePage {
   constructor (driver, implicitTimeout) {
