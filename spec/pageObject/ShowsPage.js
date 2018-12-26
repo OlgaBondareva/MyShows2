@@ -1,5 +1,6 @@
 let ShowPage = require('./ShowPage')
 let NavDrawer = require('./NavigationDrawer')
+let actions = require('../helpers/actions')
 
 class showsPage extends ShowPage {
   constructor (driver, implicitTimeout) {
@@ -18,12 +19,7 @@ class showsPage extends ShowPage {
         await this.driver.timeouts('implicit', this.implicitTimeout)
         return await this.driver.click(selector)
       }
-      await this.driver.touchAction([
-        {action: 'press', x: 830, y: 1607},
-        {action: 'wait', ms: 600},
-        {action: 'moveTo', x: 830, y: 277},
-        'release'
-      ])
+      await this.driver.touchAction(actions.swipe(830, 1607, 830, 277, 600))
     }
   }
 
