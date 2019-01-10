@@ -1,6 +1,6 @@
 let ShowPage = require('./ShowPage')
 let NavDrawer = require('./NavigationDrawer')
-let actions = require('../helpers/actions')
+let actions = require('../../helpers/actions')
 
 class ShowsPage extends ShowPage {
   constructor (driver, implicitTimeout) {

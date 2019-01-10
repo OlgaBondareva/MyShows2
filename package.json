@@ -4,9 +4,14 @@
   "scripts": {
     "run-appium": "appium",
     "run-emu": "emulator @Nexus",
+    "jasmine": "node support/jasmine.js",
     "config": "run-p run-appium run-emu",
-    "jasmine": "node spec/support/jasmine.js",
-    "test": "run-p -r config jasmine"
+    "pretest": "echo Let's see the battle!",
+    "test": "run-p -r config jasmine",
+    "posttest": "echo My sky is red",
+    "preinstall": "echo Preinstall",
+    "postinstall": "echo Postinstall",
+    "prepare": "echo Prepare"
   },
   "repository": {
     "type": "git",

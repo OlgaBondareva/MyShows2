@@ -7,7 +7,7 @@ jasmine.loadConfig({
     '../spec/test/testSpec.js',
   ],
   helpers: [
-    '../spec/helpers/specHelper.js',
+    '../helpers/specHelper.js',
     '../node_modules/jasmine-expect/index.js'
   ]
 })

@@ -1,6 +1,6 @@
 const webdriver = require('webdriverio')
-let credentials = require('../helpers/credentials')
-let caps = require('../helpers/desiredCapabilities').android27
+let credentials = require('../../config/credentials')
+let caps = require('../../helpers/desiredCapabilities').android27
 let driver = webdriver.remote(caps)
 let LoginPage = require('../pageObject/LoginPage')
 let ShowsPage = require('../pageObject/ShowsPage')
@@ -11,7 +11,7 @@ describe('App MyShows', () => {
   let series2 = 'Death Note'
 
   beforeAll(async () => {
-    await driver.pause(5000)
+    await driver.pause(30000)
     await driver.init()
   })
 

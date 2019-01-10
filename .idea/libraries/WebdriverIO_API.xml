@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="WebdriverIO API" type="javaScript">
+    <properties>
+      <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/node_modules/webdriverio/lib/commands" />
+      </sourceFilesUrls>
+    </properties>
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/node_modules/webdriverio/lib/commands" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
