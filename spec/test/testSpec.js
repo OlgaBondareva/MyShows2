@@ -4,7 +4,6 @@ let caps = require('../../helpers/desiredCapabilities').android27
 let driver = webdriver.remote(caps)
 let LoginPage = require('../pageObject/LoginPage')
 let ShowsPage = require('../pageObject/ShowsPage')
-const jasmine = require('jasmine')
 
 describe('App MyShows', () => {
   let login, shows
@@ -30,11 +29,10 @@ describe('App MyShows', () => {
   it('should login with right credentials', async () => {
     await login.enterCredentialsAndSubmit(credentials.login, credentials.pass)
     let isLoggedIn = await login.isLoggedIn()
-    // expect(isLoggedIn).toBeTrue()
-    expect(isLoggedIn).toBeFalsy()
+    expect(isLoggedIn).toBeTrue()
   })
 
-  xit('should search requested series', async () => {
+  it('should search requested series', async () => {
     await login.searchShow(series1)
     let results = await login.getSearchResults()
     for (let i = 0; i < results.length; i++) {
@@ -43,17 +41,10 @@ describe('App MyShows', () => {
     await login.backAfterSearch()
   })
 
-  xit('should add given series to the watching category', async () => {
+  it('should add given series to the watching category', async () => {
     shows = await new ShowsPage(driver, 6000)
     await shows.addToWatching(series2)
     let isAdded = await shows.isSeriesAddedToWatchingEpisodes(series2)
     expect(isAdded).toBeTrue()
   })
-
-  afterEach(async () => {
-    let cur = jasmine.getEnv().currentSpec
-
-  })
 })
-
-module.exports.driver = driver
