@@ -1,5 +1,6 @@
 let Jasmine = require('jasmine')
 let jasmine = new Jasmine()
+let logger = require('../helpers/reporter')
 
 jasmine.loadConfig({
   spec_dir: 'spec',
@@ -11,5 +12,6 @@ jasmine.loadConfig({
     '../node_modules/jasmine-expect/index.js'
   ]
 })
+jasmine.addReporter(logger)
 jasmine.randomizeTests(false)
 jasmine.execute()
