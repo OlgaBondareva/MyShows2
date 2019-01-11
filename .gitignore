@@ -30,3 +30,5 @@ npm-debug.log*
 # Node modules
 node_modules
 errorShots
+screenshots
+logs
