@@ -8,8 +8,8 @@
     "config": "run-p run-appium run-emu",
     "pretest": "rmdir /s /q screenshots && mkdir screenshots",
     "test": "run-p -r config jasmine",
-    "preinstall": "echo Preinstall",
-    "postinstall": "echo Postinstall",
+    "preinstall": "echo Preinstall. Bedore installing dev dependencies",
+    "postinstall": "echo Postinstall. Now all dev dependencies are installed",
     "prepare": "echo Prepare"
   },
   "repository": {
